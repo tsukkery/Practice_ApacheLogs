@@ -1,0 +1,121 @@
+
+.body {
+height: 100%;
+overflow:hidden;
+display: grid;
+grid-template-rows: 150px 1fr 35px;
+grid-gap: 10px;
+height: 50vh;
+margin: 0;
+	font-size: 12px;	
+#padding: 10px;
+#background-color: red;
+}
+
+.header {
+display: grid;
+grid-template-columns: 140px 1fr;
+grid-template-rows: repeat(4, 1fr);
+#background-color: gold;
+}
+
+.footer {
+display: grid;
+grid-template-columns: 1fr 110px 25px 110px 30px;
+#background-color: green;
+}
+
+.etl_body {
+display: grid;
+grid-template-rows: 190px 1fr 35px;
+grid-gap: 10px;
+height: 50vh;
+margin: 0;
+#padding: 10px;
+#background-color: red;
+}
+
+.etl_header {
+display: grid;
+grid-template-columns: 140px 1fr;
+#padding: 10px;
+}
+
+.etl_qbody {
+display: grid;
+grid-template-rows: 120px 1fr;
+grid-gap: 10px;
+height: 50vh;
+margin: 0;
+padding: 3px;
+#background-color: red;
+}
+
+.etl_qheader {
+display: grid;
+grid-template-columns: 140px 1fr;
+padding: 19px;
+#grid-template-rows: repeat(2, 1fr);
+#background-color: gold;
+}
+
+.eqf_header {
+display: grid;
+grid-template-columns: 100px 1fr;
+grid-template-rows: repeat(5, 1fr);
+}
+
+.role_body {
+display: grid;
+grid-template-rows: 110px 2px 35px;
+grid-gap: 10px;
+height: 30vh;
+margin: 0;
+padding: 10px;
+#background-color: red;
+}
+
+.zmodel_header {
+display: grid;
+grid-template-columns: 180px 1fr;
+#grid-template-rows: repeat(5, 1fr);
+padding: 10px;
+#background-color: gold;
+}
+
+.job_header {
+display: grid;
+grid-template-columns: 180px 1fr;
+padding: 10px;
+}
+
+.hor_grids {
+display: grid;
+grid-template-columns: 1fr 18px 1fr;
+#grid-template-rows: 1fr;
+#padding: 10px;
+}
+
+.tb {
+    width: 100%;
+    border-spacing: 0px;
+    valign:top;"
+}
+
+.td {
+    padding: 0px;
+    vertical-align: top;
+	font-size: 12px;	
+}
+
+.bt {
+    height: 27px;
+}
+
+.panel-body {
+	font-size: 12px;	
+}
+
+
+
+
