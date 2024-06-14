@@ -1,0 +1,27 @@
+{
+	"flask_server":	[
+		{ 
+			"pg_conn_string":	"host='localhost' dbname='dariya' user='postgres' password='postgres' port=5432"
+		}
+	],
+	"apache": [
+		{
+			"apache_log_file":	"apache_access_log.txt"
+		}
+	],
+	"reg_exp": [
+		{
+			"host":		"^(?P<host>.*?)",
+			"space":	"\\s",
+			"identity":	"\\S+",
+			"user":		"\\S+",
+			"time":		"(?P<time>\\[.*?\\])",
+			"request":	"\\\"(?P<request>.*?)\\\"",
+			"status":	"(?P<status>\\d{3})",
+			"size":		"(?P<size>\\S+)",
+			"sep":		"\\\"(?P<sep>.*?)\\\"",		
+			"browser":	"\\\"(?P<browser>.*?)\\\""				
+		}
+	]	
+	
+}
