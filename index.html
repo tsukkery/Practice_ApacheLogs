@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">                
+        <link href="/img/back1.png" rel="icon" type="image/png" />    
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <title> Web project </title>
+
+	    <link   rel="stylesheet" type="text/css" href="static/css/themes/default/easyui.css">   
+	    <link   rel="stylesheet" type="text/css" href="static/css/icon.css">             
+    	<link   rel="stylesheet" type="text/css" href="static/css/demo.css">         
+        <link   rel="stylesheet" type="text/css" href="static/css/vis.css">  
+   
+	    <script type="text/javascript" src="static/js/jquery.min.js"></script>       
+	    <script type="text/javascript" src="static/js/jquery.easyui.min.js"></script>    
+        <script type="text/javascript" src="static/js/easyui-lang-ru.js" ></script>          
+
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.12/go-debug.js"></script>		
+		
+        <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-detailview.js"></script>                
+        <script src="static/js/base.js">  </script>                
+        <script src="static/js/tree_editors.js">  </script>                		
+        
+        <style> html,body{height:100%;overflow:hidden;} </style>		
+	    <script type="text/javascript" src="static/js/datagrid-filter.js"  ></script>
+	    <style  type="text/css">
+			body {
+				font-size: 12px;				
+			}
+		    table {
+  		    	border-spacing: 0;
+  			    border-collapse: collapse;
+  			    border: none;
+  			    margin: 0;
+  			    /*vertical-align:top;*/
+				font-size: 12px;
+		    }
+			.datagrid-header .datagrid-cell span {
+				font-size: 12px;
+				line-height: 18px;				
+			}	
+			.datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+				font-size: 12px;
+				line-height: 18px;				
+			}								
+			.textbox .textbox-text {
+				font-size: 12px;
+				height: 24px;
+				padding-bottom: 4px;
+			}	
+		    // Remove default padding
+		    td, th {
+  			    border: none;
+  			    border-spacing: 0;
+  			    padding: 0px;
+  			    /*height: 100%;*/
+  			    vertical-align: top;
+				font-size: 12px;				
+		    }
+			.l-btn-text {
+				font-size: 12px;
+				line-height: 24px;
+			}
+			.tabs-title {
+				font-size: 12px;
+				height: 22px;
+				line-height: 22px;				
+			}
+		    .button{
+    			font-family: Arial, Helvetica, sans-serif;
+    			font-weight: normal;
+    			color: #444;
+    			width: 32px;
+    			padding: 0px;
+    			margin-left: 5px;
+    			background-color: #fdfdfd;
+    			border: 1px solid #cdcdcd;
+    			cursor: pointer;
+				font-size: 12px;				
+		    }
+	    </style>
+
+    </head>
+
+	
+	<body id="main_layout" class="easyui-layout">		
+		<table id="filter">
+			<tr>  
+				<td style='width:40px'> </td>
+				<td> <H3> Логи Apache </H3> </td>  
+				<td style='width:120px;'> </td>
+				<td> <input id = 'show'        type='button' value='Просмотр'  onclick="show_all()"   style='width:90px' /> </td>  
+				<td style='width:15px'> </td>				
+				<td> <input id = 'group_by_ip' type='button' value='По хосту'  onclick="by_host()"    style='width:90px' /> </td> 
+				<td style='width:15px'> </td>				
+				<td> <input id = 'group_by_dt' type='button' value='По дате'   onclick="by_dt()"      style='width:90px' /> </td> 		
+				
+				<td style='width:15px'> </td>				
+				<td> c ... </td>
+				<td> <input id = 'dt_from'   type='input' value='' style='width:90px' /> </td> 	
+				<td style='width:15px'> </td>				
+				<td> по ..  </td>
+				<td> <input id = 'dt_to'     type='input' value='' style='width:90px' /> </td> 				
+				<td style='width:15px'> </td>				
+				<td> <input id = 'dt_period'   type='button' value='За период' onclick="dt_period()"  style='width:90px' /> </td> 	
+				
+				<td style='width:15px'> </td>				
+				<td> <input id = 'create'      type='button' value='Создать БД' onclick="create_db()" style='width:90px' /> </td>  	
+				<td style='width:15px'> </td>				
+				<td> <input id = 'load'        type='button' value='Загрузка'  onclick="load_all()"   style='width:90px' /> </td> 				
+			</tr>
+		
+		</table>
+    	<table id="dg"></table>				
+ 	</body>
+
+
+	<script>
+		function show_all() {
+			// загрузка заданного грида данными из url
+			$('#dg').datagrid('loadData', []);
+			$.ajax({
+				url: '/db_select_all',
+				type: 'GET',				
+				success: function (data) {	
+					$('#dg').datagrid({
+						 singleSelect:	true
+						,enableFilter:	true			
+						,fit:			true
+						,fitColumns:	true			
+						,columns:[[
+							{field:'ip_address',title:'ip_address', width:120},
+							{field:'date_time', title:'date_time',  width:220},
+							{field:'request',   title:'request',    width:140},
+							{field:'status',    title:'status',     width:75 },			
+							{field:'size',      title:'size',       width:75 },			
+							{field:'browser',   title:'response',   width:600}							
+						]]
+					});			
+					$('#dg').datagrid('loadData', data.items);								
+				}
+			});
+		}
+		
+		function load_all()  {
+			// загрузка логов в БД		
+			$.ajax({
+				url: '/db_load',
+				type: 'GET',				
+				success: function (data) {			
+					alert('логи загружены в БД!');
+				}
+			});
+		}
+		
+		function create_db()  {
+		// создание таблицы в БД		
+			$.ajax({
+				url: '/db_create',
+				type: 'GET',				
+				success: function (data) {			
+					alert('БД успешно создана!');					
+				}
+			});			
+		}	
+		
+		function by_host() {
+			$.ajax({
+				url: '/db_select_ip_grp',
+				type: 'GET',				
+				success: function (data) {		
+					$('#dg').datagrid({	
+						 fit:			false
+						,fitColumns:	false
+						,columns:[[
+							{field:'ip_address',title:'ip_address', width:160},			
+							{field:'count',     title:'count',      width:50}							
+						]]
+					});			
+					$('#dg').datagrid('loadData', data.items);					
+				}
+			});					
+		}		
+		
+		function by_dt() {
+			$.ajax({
+				url: '/db_select_dt_grp',
+				type: 'GET',				
+				success: function (data) {		
+					$('#dg').datagrid({	
+						 fit:			false
+						,fitColumns:	false
+						,columns:[[
+							{field:'date_time', title:'date_time',  width:240},			
+							{field:'count',     title:'count',      width:50}							
+						]]
+					});			
+					$('#dg').datagrid('loadData', data.items);					
+				}
+			});					
+		}	
+		
+		function dt_period()  {
+			dt_from = $('#dt_from').val();
+			dt_to   = $('#dt_to').val();
+			url_ 	= '/db_select_dt_period?dt_from=' + dt_from + '&dt_to=' + dt_to 
+			$.ajax({			
+				url: url_,
+				type: 'GET',				
+				success: function (data) {		
+					$('#dg').datagrid({
+						 singleSelect:	true
+						,enableFilter:	true			
+						,fit:			true
+						,fitColumns:	true			
+						,columns:[[
+							{field:'ip_address',title:'ip_address', width:120},
+							{field:'date_time', title:'date_time',  width:220},
+							{field:'request',   title:'request',    width:140},
+							{field:'status',    title:'status',     width:75 },			
+							{field:'size',      title:'size',       width:75 },			
+							{field:'browser',   title:'response',   width:600}							
+						]]
+					});			
+					$('#dg').datagrid('loadData', data.items);					
+				}
+			});			
+		}
+
+	    $('#dg').datagrid({
+			 singleSelect:	true
+			,enableFilter:	true			
+			,fit:			true
+			,fitColumns:	true			
+			,columns:[[
+				{field:'ip_address',title:'ip_address', width:120},
+				{field:'date_time', title:'date_time',  width:220},
+				{field:'request',   title:'request',    width:140},
+				{field:'status',    title:'status',     width:75 },			
+				{field:'size',      title:'size',       width:75 },			
+				{field:'browser',   title:'response',   width:600}							
+			]]
+		});		
+		$('#dg').datagrid('enableFilter');				
+        console.log('grid composed');		
+					
+	</script>
+
+</html>
