@@ -1,13 +1,10 @@
 
 .body {
-height: 100%;
-overflow:hidden;
 display: grid;
 grid-template-rows: 150px 1fr 35px;
 grid-gap: 10px;
 height: 50vh;
 margin: 0;
-	font-size: 12px;	
 #padding: 10px;
 #background-color: red;
 }
@@ -105,17 +102,11 @@ grid-template-columns: 1fr 18px 1fr;
 .td {
     padding: 0px;
     vertical-align: top;
-	font-size: 12px;	
 }
 
 .bt {
     height: 27px;
 }
-
-.panel-body {
-	font-size: 12px;	
-}
-
 
 
 

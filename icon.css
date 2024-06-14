@@ -94,3 +94,11 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+
+
+.icon-check_16{
+	background:url('icons/ok.png') no-repeat center center;
+}
+.icon-ver_ocultar_16{
+	background:url('icons/clear.png') no-repeat center center;
+}
